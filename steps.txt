@@ -1,0 +1,1 @@
+python -m src.rag_doc_Ingestion.ingest_docs
