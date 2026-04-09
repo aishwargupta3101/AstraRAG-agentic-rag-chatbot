@@ -1,0 +1,25 @@
+Build docker image
+
+docker build --no-cache -t rag-chatbot .
+
+docker run -p 8000:8000 -p 8501:8501 -e GROQ_API_KEY=your_api_keys rag-chatbot
+
+#stop container
+docker stop container_id
+
+#start the stop container
+docker start container_ID
+
+#SEE ALL
+docker ps
+
+#see all at once
+docker ps -a
+
+#to remove
+docker rm container_id
+
+#delete a image
+docker rmi image_id
+
+

@@ -1,0 +1,21 @@
+#Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.bin
+*.pdf
+#Ignore vector stor nd large files
+doc_vector_store/
+#Ignore environment files
+.env
+#ignore os files
+.DS_store
+#virtual env
+.venv/
+venv/
+
+doc_vector_store/
