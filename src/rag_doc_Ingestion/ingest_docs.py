@@ -29,15 +29,15 @@ def build_vector_store_from_documents():
         vector_store_path = settings.VECTOR_STORE_DIR
         collection_name = settings.COLLECTION_NAME
 
-        # ✅ Ensure directory exists
         os.makedirs(vector_store_path, exist_ok=True)
         logger.info(f"Documents dir: {docs_dir_path}")
         logger.info(f"Vector store dir: {vector_store_path}")
-        # ---------------- LOAD DOCUMENTS ---------------- #
+
         logger.info("Loading documents...")
         documents = SimpleDirectoryReader(docs_dir_path).load_data()
-
-        # ---------------- CHUNKING ---------------- #
+        print("DOCUMENT COUNT:" , len(documents))
+        for doc in documents:
+            print(doc.text[:500])
         parser = SimpleNodeParser.from_defaults(
             chunk_size=1024,
             chunk_overlap=50
@@ -45,7 +45,7 @@ def build_vector_store_from_documents():
         logger.info("Parsing documents into nodes...")
         nodes = parser.get_nodes_from_documents(documents)
         logger.info(f"Parsed {len(nodes)} nodes.")
-        # ---------------- CHROMADB (PERSISTENT) ---------------- #
+
         logger.info(f"Initializing persistent ChromaDB at: {vector_store_path}")
         client = chromadb.PersistentClient(path=vector_store_path)
         chroma_collection = client.get_or_create_collection(
@@ -57,7 +57,6 @@ def build_vector_store_from_documents():
         storage_context = StorageContext.from_defaults(
             vector_store=vector_store
         )
-        # ---------------- BUILD INDEX ---------------- #
         logger.info("Building vector store index...")
         index = VectorStoreIndex(
             nodes,
