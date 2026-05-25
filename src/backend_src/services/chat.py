@@ -5,11 +5,9 @@ logger = logging.getLogger(__name__)
 
 def get_answer(chat_history: list) -> dict:
     logger.info(f"Received chat_history:{chat_history}")
-    #get the last message in the chat_history as user-query
     last_user_message = chat_history[-1]
     user_query = last_user_message["content"]
     logger.info(f"Extracted user_query:{user_query}")
-    #Remove the last user message from chat_history
     history_without_last = chat_history[:-1]
     input_data ={
         "user_query": user_query,
